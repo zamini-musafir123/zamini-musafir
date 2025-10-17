@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Main page -->
+  <url>
+    <loc>https://zamini-musafir.com/zamini-apps/zamini-apps.html</loc>
+    <lastmod>2025-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Product / App Pages -->
+  <url>
+    <loc>https://zamini-musafir.com/zamini-apps/products/Zamini_PDF_Converter_v1.1.0/index.html</loc>
+    <lastmod>2025-10-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zamini-musafir.com/zamini-apps/products/Zamini_path2text_1.0.0/index.html</loc>
+    <lastmod>2025-10-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zamini-musafir.com/zamini-apps/products/Zamini_TextAllPDFs_v1.0.0/index.html</loc>
+    <lastmod>2025-10-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zamini-musafir.com/zamini-apps/products/Zamini_QuickDownload_v1.0.0/index.html</loc>
+    <lastmod>2025-10-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zamini-musafir.com/zamini-apps/products/Zamini_MultiPic_v1.0.0/index.html</loc>
+    <lastmod>2025-10-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zamini-musafir.com/zamini-apps/products/Zamini_ExamCraft_v1.0.0/index.html</loc>
+    <lastmod>2025-10-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Optional additional content pages -->
+  <!-- Example: About / Contact / Join pages -->
+  <!--
+  <url>
+    <loc>https://zamini-musafir.com/zamini-apps/about.html</loc>
+    <lastmod>2025-10-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  -->
+
+</urlset>
