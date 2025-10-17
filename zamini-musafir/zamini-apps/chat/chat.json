@@ -1,0 +1,10 @@
+{
+  "activeVersion": "v1.0.0",
+  "versions": {
+    "v1.0.0": {
+      "html": "chat/v1.0.0/chat.html",
+      "css": "chat/v1.0.0/chat.css",
+      "js": "chat/v1.0.0/chat.js"
+    }
+  }
+}

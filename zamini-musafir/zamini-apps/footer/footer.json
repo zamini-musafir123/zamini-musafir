@@ -1,0 +1,10 @@
+{
+  "activeVersion": "v1.0.0",
+  "versions": {
+    "v1.0.0": {
+      "html": "footer/v1.0.0/footer.html",
+      "css": "footer/v1.0.0/footer.css",
+      "js": "footer/v1.0.0/footer.js"
+    }
+  }
+}

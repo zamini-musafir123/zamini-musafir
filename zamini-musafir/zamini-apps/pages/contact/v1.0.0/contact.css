@@ -1,0 +1,39 @@
+#contactTab {
+  padding: 20px;
+}
+
+#contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  margin: auto;
+}
+
+#contactForm input,
+#contactForm textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+#contactForm button {
+  padding: 10px;
+  background: linear-gradient(135deg, #ffd966, #e6b800);
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#contactForm button:hover {
+  background: linear-gradient(135deg, #e6b800, #ffd966);
+}
+
+.update-status {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: green;
+}

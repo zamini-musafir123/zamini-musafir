@@ -1,0 +1,2 @@
+cd path/to/zamini-apps
+python -m http.server 5500

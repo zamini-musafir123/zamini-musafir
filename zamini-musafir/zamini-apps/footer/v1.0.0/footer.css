@@ -1,0 +1,141 @@
+/* ===================== Footer ===================== */
+footer { 
+  background: #c48f3c; 
+  color: #fff; 
+  text-align: center; 
+  padding: 40px 20px 20px;
+  font-family: Arial, sans-serif;
+}
+/* phone adjustments needed below */
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+}
+/* phone adjustments: stacked in phone */
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin: 10px;
+}
+/* phone adjustments: center text */
+
+.footer-section h3, .footer-section h4 {
+  margin-bottom: 10px;
+}
+/* no phone code needed */
+
+.footer-section p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+/* no phone code needed */
+
+.footer-section a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 5px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+/* no phone code needed */
+
+.footer-section a:hover {
+  color: #ffd966;
+}
+/* no phone code needed */
+
+/* ===================== Newsletter ===================== */
+.newsletter {
+  margin-top: 10px;
+}
+/* phone adjustments: input/button width change */
+
+.newsletter input {
+  padding: 8px 10px;
+  border-radius: 5px 0 0 5px;
+  border: none;
+  width: 150px;
+}
+
+.newsletter button {
+  padding: 8px 12px;
+  border-radius: 0 5px 5px 0;
+  border: none;
+  background: linear-gradient(135deg, #ffd966, #e6b800);
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.newsletter button:hover {
+  box-shadow: 0 4px 12px rgba(230,184,0,0.5);
+  transform: translateY(-2px);
+}
+
+.newsletter p {
+  font-size: 0.8rem;
+  color: #fff;
+  margin-top: 5px;
+}
+
+/* ===================== Social Buttons ===================== */
+.footer-social {
+  margin-top: 10px;
+}
+/* phone adjustments: buttons become block */
+
+.footer-social .social-btn {
+  display: inline-block;
+  margin: 5px 3px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #ffd966, #e6b800);
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-social .social-btn:hover {
+  box-shadow: 0 4px 12px rgba(230,184,0,0.5);
+  transform: translateY(-2px);
+}
+
+/* ===================== Footer Bottom ===================== */
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.85rem;
+}
+/* no phone code needed */
+
+/* ===================== Phone ===================== */
+@media (max-width: 900px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-section {
+    text-align: center;
+  }
+  .newsletter input {
+    width: 80%;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  .newsletter button {
+    width: 80%;
+    border-radius: 5px;
+  }
+  .footer-social .social-btn {
+    display: block;
+    width: 60%;
+    margin: 5px auto;
+  }
+}

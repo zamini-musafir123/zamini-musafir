@@ -1,0 +1,15 @@
+{
+  "activeVersion": "v1.0.0",
+  "versions": {
+    "v1.0.0": {
+      "html": "header/v1.0.0/header.html",
+      "css": "header/v1.0.0/header.css",
+      "js": "header/v1.0.0/header.js"
+    },
+    "v1.0.1": {
+      "html": "header/v1.0.1/header.html",
+      "css": "header/v1.0.1/header.css",
+      "js": "header/v1.0.1/header.js"
+    }
+  }
+}

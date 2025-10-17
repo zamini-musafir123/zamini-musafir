@@ -1,0 +1,273 @@
+/* ===================== Reset & Body ===================== */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fff8e7; /* soft light beige */
+  color: #333;
+  line-height: 1.6;
+}
+/* no phone code needed: body is flexible by default */
+
+a { 
+  text-decoration: none; 
+  color: #333; 
+}
+/* no phone code needed: links adjust naturally */
+
+.container { 
+  width: 90%; 
+  max-width: 1200px; 
+  margin: auto; 
+  padding: 20px; 
+}
+/* no phone code needed: container uses max-width and % width */
+
+/* ===================== Header ===================== */
+header {
+  background: #c48f3c; 
+  color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+/* no phone code needed: padding ok, flex-wrap handles small screens */
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+/* no phone code needed: flex-wrap already allows stacking */
+
+
+
+/* ===================== Logo ===================== */
+.logo {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #ffd966;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
+  position: relative;
+}
+/* no phone code needed: logo size is fixed, looks fine on small screens */
+
+.logo::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 15px 5px rgba(255, 217, 102, 0.5);
+  pointer-events: none;
+}
+/* no phone code needed: glow adjusts with logo size */
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* no phone code needed: img scales inside logo */
+
+.logo:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  filter: brightness(1.05);
+}
+/* no phone code needed: hover effect just scales */
+
+/* ===================== Brand Info ===================== */
+.brand-info h1 {
+  font-size: 2.3rem;
+  margin-bottom: 5px;
+}
+/* no phone code needed: wraps naturally */
+
+.sub-info {
+  font-size: 1rem;
+  color: #f5deba;
+}
+/* no phone code needed: small text fits */
+
+.site-meta {
+  text-align: right;
+  font-size: 0.85rem;
+}
+/* no phone code needed: text alignment still works */
+
+.site-meta .version {
+  display: block;
+  margin-bottom: 3px;
+}
+/* no phone code needed */
+
+/* ===================== Header Button ===================== */
+.header-btn {
+  text-align: center;
+  margin-top: 15px;
+}
+/* no phone code needed: button centered */
+
+.header-btn .btn {
+  background: linear-gradient(135deg, #ffd966, #e6b800);
+  color: #333;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+/* no phone code needed: button scales fine */
+
+.header-btn .btn:hover {
+  box-shadow: 0 4px 15px rgba(230, 184, 0, 0.5);
+  transform: translateY(-2px);
+}
+/* no phone code needed */
+
+/* ===================== Tabs ===================== */
+.tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;           /* stack tabs on small screens */
+  background: #f9e6c1;
+  border-bottom: 2px solid #c48f3c;
+  overflow-x: auto;          /* scroll on narrow screens */
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  gap: 2px;
+}
+
+.tab {
+  padding: 12px 25px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #b0752c;
+  transition: 0.3s;
+  border-right: 1px solid #c48f3c;
+  background: #f9e6c1;
+  display: inline-block;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.tab:last-child {
+  border-right: none;
+}
+
+.tab.active {
+  background: #c48f3c;
+  color: #fff;
+  border-bottom: 2px solid #ffd966;
+}
+
+/* ===================== Tab Content ===================== */
+.tab-content {
+  display: none;
+  padding: 30px 20px;
+  text-align: center;
+  background: #fffbe6;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-top: 10px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+
+/* ===== Mobile adjustments ===== */
+@media (max-width: 700px) {
+  .tabs {
+    justify-content: flex-start;  /* allow scrolling from left */
+    gap: 4px;
+  }
+
+  .tab {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+}
+
+
+/* no phone code needed: padding is fine */
+
+
+
+
+
+
+
+
+
+/* --- Mobile Fixes --- */
+@media (max-width: 900px) {
+  /* 1️⃣ Cards stack earlier */
+  .card, .feature {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  /* 2️⃣ Flip-card height bug fix */
+  .flip-card {
+    aspect-ratio: 16 / 9;
+    padding-top: 0;
+  }
+
+  /* 3️⃣ Logo + heading scale */
+  .brand-info h1 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+  .logo {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  }
+
+  /* 4️⃣ Tabs: scrollable on mobile */
+  .tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .tab {
+    display: inline-block;
+    padding: 12px 18px;
+    font-size: 0.9rem;
+  }
+
+  /* 5️⃣ Footer: make sure it stacks nicely */
+  footer {
+    padding: 25px 15px;
+  }
+  .footer-section {
+    text-align: center;
+    width: 100%;
+  }
+
+  /* ================6️⃣ Social buttons smaller======================= */
+  .social {
+    top: auto;
+    bottom: 120px;
+    flex-direction: row;
+    left: 10%;
+    right: 10%;
+    justify-content: center;
+  }
+}
+
+
+
+  
+
+    

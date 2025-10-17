@@ -1,0 +1,153 @@
+/* ====================== Chat Button ====================== */
+#chatBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #ffd966, #e6b800);
+  color: #333;
+  padding: 12px 18px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(230,184,0,0.5);
+  z-index: 1000;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#chatBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(230,184,0,0.6);
+}
+
+/* ====================== Chat Box ====================== */
+#chatBox {
+  display: none;
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  width: 320px;
+  max-width: 90%;
+  background: #fffbe6;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #c48f3c;
+  box-shadow: 0 4px 14px rgba(230,184,0,0.4);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 400px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Chat form inputs */
+#chatBox input,
+#chatBox textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: #fff8e7;
+  font-size: 0.85rem;
+  color: #333;
+  box-sizing: border-box;
+  resize: none;
+}
+
+#chatBox textarea {
+  min-height: 60px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+/* Chat submit button */
+#chatBox button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #ffd966, #e6b800);
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#chatBox button:hover {
+  box-shadow: 0 4px 10px rgba(230,184,0,0.5);
+  transform: translateY(-2px);
+}
+
+/* ====================== Optional header inside chat ====================== */
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Chat option buttons (if any) */
+.chat-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.chat-options button {
+  flex: 1;
+  margin: 0 3px;
+  background: #eee;
+  border: none;
+  padding: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.chat-options button:hover {
+  background: #ffb400;
+  color: #000;
+}
+
+/* ====================== Responsive ====================== */
+@media (max-width: 900px) {
+  #chatBtn {
+    bottom: 15px;
+    right: 15px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
+  #chatBox {
+    width: 90%;
+    right: 5%;
+    bottom: 60px;
+    max-height: 350px;
+    padding: 12px;
+  }
+
+  #chatBox input,
+  #chatBox textarea,
+  #chatBox button {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  #chatBox {
+    width: 90%;
+    right: 5%;
+    bottom: 50px;
+    max-height: 300px;
+  }
+
+  #chatBox textarea {
+    min-height: 50px;
+    max-height: 100px;
+  }
+}

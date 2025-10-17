@@ -1,0 +1,10 @@
+{
+  "activeVersion": "v1.0.0",
+  "versions": {
+    "v1.0.0": {
+      "html": "pages/updates/v1.0.0/updates.html",
+      "css": "pages/updates/v1.0.0/updates.css",
+      "js": "pages/updates/v1.0.0/updates.js"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.quick-links {
+  text-align: center;
+}
+
+.quick-links a {
+  color: #333;
+  font-weight: bold;
+  margin: 0 6px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.quick-links a:hover {
+  color: #e6b800;
+}

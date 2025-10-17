@@ -1,0 +1,10 @@
+{
+  "activeVersion": "v1.0.0",
+  "versions": {
+    "v1.0.0": {
+      "css": "pages/products/v1.0.0/products.css",
+      "html": "pages/products/v1.0.0/products.html",
+      "js": "pages/products/v1.0.0/products.js"
+    }
+  }
+}

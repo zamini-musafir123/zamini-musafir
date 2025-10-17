@@ -1,0 +1,78 @@
+.updates-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 20px;
+  max-width: 1200px; /* limit overall width */
+  margin: 0 auto; /* center container */
+  background: #f9f7f1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.updates-left { order: 1; flex: 1; min-width: 280px; max-width: 48%; }
+.updates-right { order: 2; flex: 1; min-width: 280px; max-width: 48%; }
+
+/* Section Titles */
+.updates-left h3, .updates-right h3 {
+  font-size: 1.1em;
+  text-align: center;
+  color: #333;
+  margin-bottom: 14px;
+  border-bottom: 2px solid #ffd966;
+  padding-bottom: 5px;
+}
+.updates-left h3 .count, .updates-right h3 .count { font-size: 0.85em; color: #777; margin-left: 6px; }
+
+/* Lists */
+.updates-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+
+/* Right Column Items */
+.updates-right .updates-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 6px 10px; /* smaller padding */
+  border-radius: 5px; /* smaller radius */
+  border-left: 4px solid #ffd966;
+  font-size: 0.85em; /* slightly smaller font */
+  color: #333;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.updates-right .updates-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+.updates-right .item-count { font-weight: 700; color: #555; margin-right: 6px; }
+.updates-right .item-name { flex: 1; color: #222; }
+.updates-right .release-date { color: #888; font-size: 0.8em; }
+
+/* Left Column Updates */
+.update-item {
+  background: #fff9e6;
+  border-left: 4px solid #ffd966;
+  padding: 8px 12px; /* slightly smaller padding */
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.update-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background: #fffde3;
+}
+.update-header {
+  display: flex;
+  gap: 6px; /* slightly smaller gap */
+  align-items: center;
+  margin-bottom: 3px;
+}
+.update-header .item-count { font-weight: bold; color: #555; }
+.update-header .item-name { color: #222; font-weight: 600; }
+.update-header .date { color: #888; font-size: 0.75em; }
+.update-item p { margin: 0; font-size: 0.85em; color: #333; }
+
+/* Responsive */
+@media (max-width: 900px) { 
+  .updates-container { flex-direction: column; }
+  .updates-left, .updates-right { max-width: 100%; }
+}

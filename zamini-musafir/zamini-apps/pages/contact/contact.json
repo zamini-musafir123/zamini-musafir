@@ -1,0 +1,10 @@
+{
+  "activeVersion": "v1.0.0",
+  "versions": {
+    "v1.0.0": {
+      "css": "pages/contact/v1.0.0/contact.css",
+      "html": "pages/contact/v1.0.0/contact.html",
+      "js": "pages/contact/v1.0.0/contact.js"
+    }
+  }
+}

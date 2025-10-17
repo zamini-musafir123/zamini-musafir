@@ -1,0 +1,10 @@
+{
+  "activeVersion": "v1.0.0",
+  "versions": {
+    "v1.0.0": {
+      "html": "social/v1.0.0/social.html",
+      "css": "social/v1.0.0/social.css",
+      "js": "social/v1.0.0/social.js"
+    }
+  }
+}

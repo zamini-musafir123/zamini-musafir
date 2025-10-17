@@ -1,0 +1,10 @@
+{
+  "activeVersion": "v1.0.0",
+  "versions": {
+    "v1.0.0": {
+      "html": "quicklinks/v1.0.0/quicklinks.html",
+      "css": "quicklinks/v1.0.0/quicklinks.css",
+      "js": "quicklinks/v1.0.0/quicklinks.js"
+    }
+  }
+}

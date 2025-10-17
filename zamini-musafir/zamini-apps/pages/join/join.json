@@ -1,0 +1,10 @@
+{
+  "activeVersion": "v1.0.0",
+  "versions": {
+    "v1.0.0": {
+      "css": "pages/join/v1.0.0/join.css",
+      "html": "pages/join/v1.0.0/join.html",
+      "js": "pages/join/v1.0.0/join.js"
+    }
+  }
+}

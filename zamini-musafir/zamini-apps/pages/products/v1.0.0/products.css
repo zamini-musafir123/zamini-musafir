@@ -1,0 +1,363 @@
+/* ===================== Card Container Wrapper ===================== */
+.products, .features { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 20px;                /* more space between cards */
+  justify-content: center; 
+  padding: 10px;            /* padding around container */
+}
+
+/* ===================== Card Styling ===================== */
+.card, .feature { 
+  flex: 1 1 calc(25% - 20px);
+  max-width: calc(25% - 20px);
+  background: #fff3d6;
+  border: 2px solid #d4af37;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  font-size: 0.75rem;
+  box-sizing: border-box;
+  min-height: 230px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Hover effect for cards */
+.card:hover, .feature:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  border-color: #ffd966;           /* golden highlight on hover */
+}
+
+/* ===================== Flip Card ===================== */
+.flip-card {
+  width: 100%;
+  aspect-ratio: 4 / 3;       /* consistent proportions */
+  perspective: 1000px;
+  margin-bottom: 8px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* FRONT & BACK SIDES */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fffbe6;  /* optional light background */
+}
+
+.flip-card-front img,
+.flip-card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;      /* show full image, no crop */
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+/* BACK SIDE ROTATED */
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* ===================== Responsive Layout ===================== */
+.products, .features { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 12px; 
+  justify-content: center; 
+}
+
+@media (max-width: 1200px) {
+  .card, .feature {
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+  }
+}
+
+@media (max-width: 900px) {
+  .card, .feature {
+    flex: 1 1 calc(50% - 20px);
+    max-width: calc(50% - 20px);
+  }
+}
+
+/* ===== Mobile Flip Card Fix ===== */
+@media (max-width: 720px) {
+  .flip-card {
+    aspect-ratio: 3 / 4; /* slightly taller for phones */
+  }
+
+  .flip-card-inner {
+    transition: transform 0.6s ease;
+    transform-style: preserve-3d;
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+
+  .flip-card-back {
+    transform: rotateY(180deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .card, .feature {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* ===================== Card Content ===================== */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;                       
+  text-align: center;              
+  justify-content: center;         
+}
+
+.card h3, .feature h4 { 
+  color: #b0752c; 
+  margin: 0;                       
+  font-size: 1rem;           
+  line-height: 1.1;               
+  text-align: center;             
+}
+
+.card p, .feature p { 
+  font-size: 0.65rem; 
+  margin: 0;                       
+  line-height: 1.1;               
+}
+
+
+
+
+
+
+
+/* ===================== Buttons ===================== */
+.btn-download, .card .btn, .feature .btn { 
+  display: inline-block; 
+  padding: 6px 12px;          /* slightly bigger for better proportion */
+  background: linear-gradient(135deg, #ffd966, #e6b800); /* shiny gold gradient */
+  color: #333; 
+  border-radius: 8px;         /* rounded pill shape */
+  font-weight: bold; 
+  font-size: 0.75rem;         /* slightly larger */
+  text-decoration: none;
+  margin-top: 6px;                 
+  text-align: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25); /* subtle shadow */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn.ghost, .card .btn.ghost, .feature .btn.ghost { 
+  background: transparent; 
+  border: 1px solid #b0752c; 
+  color: #b0752c; 
+}
+
+/* ===================== Download Button Wrapper ===================== */
+.download-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                   /* more space between button and badge */
+  justify-content: center;
+  margin-top: 4px;
+  position: relative;
+}
+
+/* ===================== Download Count Badge ===================== */
+.download-wrapper .count {
+  background: linear-gradient(135deg, #00c853, #00e676); /* vibrant green */
+  color: #fff;              
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 14px;        /* pill shape for numbers */
+  min-width: 28px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35),
+              0 0 8px rgba(0, 255, 100, 0.6); /* glowing effect */
+  line-height: 1;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect to make it pop */
+.download-wrapper .count:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4),
+              0 0 14px rgba(0, 255, 100, 0.9);
+}
+
+/* ===================== Top-left Badge ===================== */
+.badge-top {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: rgba(0,180,0,0.9);
+  color: #fffbe6;
+  padding: 3px 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge-top .release {
+  font-size: 0.55rem;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+/* ===================== Coming Soon Badge ===================== */
+.card .coming-soon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(212, 175, 55, 0.95);  
+  color: #fffbe6;                         
+  padding: 3px 6px;                        
+  border-radius: 6px;
+  font-size: 0.65rem;                      
+  font-weight: 700;
+  text-transform: uppercase;               
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  pointer-events: none;                     
+  z-index: 10;                              
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover .coming-soon {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.35);
+}
+
+/* ===================== Disabled Cards ===================== */
+.card.disabled {
+  filter: brightness(0.9);
+}
+.card.disabled::after {
+  border-radius: 10px;
+}
+.card.disabled img,
+.card.disabled .btn {
+  opacity: 0.85;
+}
+
+/* ===================== Available Badge ===================== */
+.card .available {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: rgba(0, 180, 0, 0.9);
+  color: #fffbe6;                        
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ===================== Mobile Fixes for Cards & Flip-Cards ===================== */
+@media (max-width: 720px) {
+  /* Make cards and features full width */
+  .card, .feature {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  /* Keep flip-cards back-to-back without stacking vertically */
+  .flip-card {
+    width: 100%;
+    aspect-ratio: 4 / 3;       /* maintain good card shape */
+    margin-bottom: 20px;       /* spacing between cards */
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;         /* allow z-index stacking */
+  }
+
+  .flip-card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;        /* keep front/back overlapping */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #fffbe6;
+  }
+
+  .flip-card-back {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front img,
+  .flip-card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;        /* show full image, no cropping */
+    box-sizing: border-box;
+    padding: 5px;
+  }
+}

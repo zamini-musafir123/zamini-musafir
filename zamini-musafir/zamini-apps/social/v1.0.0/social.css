@@ -1,0 +1,53 @@
+/* ===================== Social Flip Buttons ===================== */
+.social {
+  position: fixed;
+  top: 40%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.social a {
+  background: linear-gradient(135deg, #ffd966, #e6b800); /* shiny gold */
+  padding: 12px;
+  margin: 2px 0;
+  display: block;
+  text-align: center;
+  border-radius: 0 5px 5px 0;
+  font-weight: bold;
+  transition: 0.3s;
+  color: #333;
+}
+
+.social a:hover { 
+  transform: translateX(5px);
+  box-shadow: 0 4px 10px rgba(230,184,0,0.5);
+}
+
+/* --- Responsive Social (Mobile) --- */
+@media (max-width: 900px) {
+  .social {
+    top: auto;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    padding: 6px 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  }
+
+  .social a {
+    margin: 0 4px;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 0.9rem;
+    transition: 0.2s;
+  }
+
+  .social a:hover {
+    transform: translateY(-3px);
+  }
+}
