@@ -1,240 +1,212 @@
+// ================================================== 1. MAIN DOMCONTENTLOADED ==================================================
 document.addEventListener('DOMContentLoaded', () => {
 
-
-  // ===== 2. Smooth Scroll =====
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
+  // ===== 1.1 Smooth Scroll =====
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => { //anchor variable: <a> tag (aka an anchor tag in HTML).
+    anchor.addEventListener('click', function (e) { // function is event
+      e.preventDefault(); // prevent default anchor jump
+      const target = document.querySelector(this.getAttribute('href')); // get target element
+      if (target) target.scrollIntoView({ behavior: 'smooth' }); // scroll smoothly
     });
   });
 
+  // ===== 1.2 EmailJS Init =====
+  if (typeof emailjs !== "undefined") emailjs.init('DhW4bXmuP0VP2d8bF'); // initialize EmailJS if loaded
 
-  // ===== 5. EmailJS Init =====
-  if (typeof emailjs !== "undefined") emailjs.init('DhW4bXmuP0VP2d8bF');
-
-  // ===== 6. Feedback Form =====
-  const feedbackForm = document.getElementById('contactForm');
+  // ===== 1.3 Feedback Form =====
+  const feedbackForm = document.getElementById('contactForm'); // get feedback form
   if (feedbackForm) {
-    let statusEl = document.getElementById('feedback-status');
+    let statusEl = document.getElementById('feedback-status'); // get or create status element
     if (!statusEl) {
-      statusEl = document.createElement('div');
-      statusEl.id = 'feedback-status';
-      statusEl.style.marginTop = "8px";
-      statusEl.style.color = "green";
-      feedbackForm.appendChild(statusEl);
+      statusEl = document.createElement('div'); // create div for status
+      statusEl.id = 'feedback-status'; // assign id
+      statusEl.style.marginTop = "8px"; // spacing
+      statusEl.style.color = "green"; // text color
+      feedbackForm.appendChild(statusEl); // append to form
     }
-    feedbackForm.addEventListener('submit', e => {
-      e.preventDefault();
-      statusEl.textContent = "Sending...";
-      const templateParams = {
+    feedbackForm.addEventListener('submit', e => { // handle submit event
+      e.preventDefault(); // prevent page reload
+      statusEl.textContent = "Sending..."; // show sending message
+      const templateParams = { // collect form data
         software: feedbackForm.software?.value || "Not selected",
         name: feedbackForm.name?.value || "Anonymous",
         email: feedbackForm.email?.value || "Not provided",
         message: feedbackForm.message?.value || "No message"
       };
-      emailjs.send('zamini_musafir', 'template_yz15x2d', templateParams)
-        .then(() => { statusEl.textContent = "Feedback sent successfully!"; feedbackForm.reset(); })
-        .catch(err => { console.error(err); statusEl.textContent = "Oops! Something went wrong."; });
+      emailjs.send('zamini_musafir', 'template_yz15x2d', templateParams) // send feedback
+        .then(() => { statusEl.textContent = "Feedback sent successfully!"; feedbackForm.reset(); }) // success
+        .catch(err => { console.error(err); statusEl.textContent = "Oops! Something went wrong."; }); // error handling
     });
   }
 
-  // ===== 7. Updates Subscription =====
-  const updatesForm = document.getElementById('updatesForm');
+
+  
+  // ===== 1.4 Updates Subscription =====
+  const updatesForm = document.getElementById('updatesForm'); // get subscription form
   if (updatesForm) {
-    const updatesStatus = document.getElementById('updates-status');
-    updatesForm.addEventListener('submit', e => {
-      e.preventDefault();
-      updatesStatus.textContent = "Subscribing...";
-      const email = updatesForm.email.value.trim();
-      if (!email) { updatesStatus.textContent = "Enter a valid email!"; return; }
-      if (typeof emailjs !== "undefined") {
-        emailjs.send('zamini_musafir', 'template_updates', { email })
-          .then(() => { updatesStatus.textContent = "Subscribed successfully!"; updatesForm.reset(); })
-          .catch(err => { console.error(err); updatesStatus.textContent = "Oops! Something went wrong."; });
-      } else updatesStatus.textContent = "Email service not available.";
+    const updatesStatus = document.getElementById('updates-status'); // status element
+    updatesForm.addEventListener('submit', e => { // handle submit
+      e.preventDefault(); // prevent reload
+      updatesStatus.textContent = "Subscribing..."; // show subscribing
+      const email = updatesForm.email.value.trim(); // get trimmed email
+      if (!email) { updatesStatus.textContent = "Enter a valid email!"; return; } // validation
+      if (typeof emailjs !== "undefined") { // check EmailJS
+        emailjs.send('zamini_musafir', 'template_updates', { email }) // send subscription
+          .then(() => { updatesStatus.textContent = "Subscribed successfully!"; updatesForm.reset(); }) // success
+          .catch(err => { console.error(err); updatesStatus.textContent = "Oops! Something went wrong."; }); // error
+      } else updatesStatus.textContent = "Email service not available."; // fallback
     });
   }
 
-
-
-  // ===== 11. Social Load =====
-  fetch('social/social.json')
-    .then(res => res.json())
+  // ===== 1.5 Social Load =====
+  fetch('social/social.json') // fetch social config
+    .then(res => res.json()) // parse JSON
     .then(config => {
-      const version = config.activeVersion;
-      const files = config.versions[version];
+      const version = config.activeVersion; // get active version
+      const files = config.versions[version]; // get version files
 
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = files.css;
-      document.head.appendChild(link);
+      const link = document.createElement('link'); // create CSS link
+      link.rel = 'stylesheet'; 
+      link.href = files.css; 
+      document.head.appendChild(link); // append CSS
 
-      fetch(files.html)
+      fetch(files.html) // fetch HTML
         .then(res => res.text())
         .then(html => {
-          document.getElementById('social-container').innerHTML = html;
+          document.getElementById('social-container').innerHTML = html; // insert social HTML
 
-          const script = document.createElement('script');
-          script.src = files.js;
-          document.body.appendChild(script);
+          const script = document.createElement('script'); // create script
+          script.src = files.js; 
+          document.body.appendChild(script); // append script
         });
     })
-    .catch(err => console.error("Social load failed:", err));
+    .catch(err => console.error("Social load failed:", err)); // error handling
 
-  // ===== 12. Quick Links Load =====
-  function loadQuickLinks() {
-    const section = document.querySelector('.footer-section.quicklinks');
+  // ===== 1.6 Quick Links Load =====
+  function loadQuickLinks() { // function to load quick links
+    const section = document.querySelector('.footer-section.quicklinks'); // select section
     if (section) {
-      fetch('quicklinks/quicklinks.json')
-        .then(res => res.json())
+      fetch('quicklinks/quicklinks.json') // fetch JSON
+        .then(res => res.json()) // parse JSON
         .then(config => {
-          const version = config.activeVersion;
-          const files = config.versions[version];
+          const version = config.activeVersion; // active version
+          const files = config.versions[version]; // version files
 
-          const link = document.createElement('link');
+          const link = document.createElement('link'); // create CSS link
           link.rel = 'stylesheet';
           link.href = files.css;
-          document.head.appendChild(link);
+          document.head.appendChild(link); // append CSS
 
-          return fetch(files.html);// ===== Load Header =====
-fetch('header/v1.0.0/header.html')
-  .then(res => res.text())
-  .then(html => {
-    document.getElementById('header-container').innerHTML = html;
-
-    // Add CSS for header
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'header/v1.0.0/header.css';
-    document.head.appendChild(link);
-
-    // Load its JS (for totalViews etc.)
-    const script = document.createElement('script');
-    script.src = 'header/v1.0.0/header.js';
-    document.body.appendChild(script);
-  })
-  .catch(err => console.error('Header failed to load:', err));
-
-
+          return fetch(files.html); // fetch HTML
         })
-        .then(res => res.text())
+        .then(res => res.text()) // parse HTML
         .then(html => {
-          const section = document.querySelector('.footer-section.quicklinks');
+          const section = document.querySelector('.footer-section.quicklinks'); // select section again
           if (section) {
-            section.innerHTML = html;
-            console.log('✅ Quick Links loaded');
+            section.innerHTML = html; // insert HTML
+            console.log('✅ Quick Links loaded'); // log success
           }
         })
-        .catch(err => console.error('Quick Links load failed:', err));
+        .catch(err => console.error('Quick Links load failed:', err)); // error
     } else {
-      setTimeout(loadQuickLinks, 300);
+      setTimeout(loadQuickLinks, 300); // retry after 300ms
     }
   }
-  loadQuickLinks();
+  loadQuickLinks(); // initial call
 
 });
-document.addEventListener("DOMContentLoaded", () => {
-  const globalSocial = document.querySelectorAll("#globalSocial a");
-  const footerSocial = document.querySelectorAll(".footer-social a");
-
-  footerSocial.forEach(footerBtn => {
-    const platform = footerBtn.dataset.platform;
-    const match = Array.from(globalSocial).find(btn => btn.dataset.platform === platform);
-    if (match) {
-      footerBtn.href = match.href;
-      footerBtn.target = match.target;
-    }
-  });
-});
-
+// ================================================== 3. CHAT WIDGET LOAD ==================================================
 document.addEventListener('DOMContentLoaded', () => {
-  fetch('chat/chat.json')
-    .then(res => res.json())
-    .then(config => {
-      const version = config.activeVersion;
-      const files = config.versions[version];
 
-      const link = document.createElement('link');
+  // ===== 3.1 Load Chat Widget =====
+  fetch('chat/chat.json') // fetch chat config
+    .then(res => res.json()) // parse JSON
+    .then(config => {
+      const version = config.activeVersion; // active version
+      const files = config.versions[version]; // version files
+
+      const link = document.createElement('link'); // create CSS link
       link.rel = 'stylesheet';
       link.href = files.css;
-      document.head.appendChild(link);
+      document.head.appendChild(link); // append CSS
 
-      fetch(files.html)
-        .then(res => res.text())
+      fetch(files.html) // fetch chat HTML
+        .then(res => res.text()) // parse HTML
         .then(html => {
-          document.body.insertAdjacentHTML('beforeend', html);
+          document.body.insertAdjacentHTML('beforeend', html); // insert HTML
 
-          const script = document.createElement('script');
+          const script = document.createElement('script'); // create script
           script.src = files.js;
-          document.body.appendChild(script);
+          document.body.appendChild(script); // append script
         });
     });
+
 });
-//================== footer============================
+
+
+// ================================================== 2. FOOTER SOCIAL SYNC ==================================================
+document.addEventListener("DOMContentLoaded", () => {
+
+  // ===== 2.1 Sync Footer Social =====
+  const globalSocial = document.querySelectorAll("#globalSocial a"); // get global links
+  const footerSocial = document.querySelectorAll(".footer-social a"); // get footer links
+
+  footerSocial.forEach(footerBtn => { // sync each footer link
+    const platform = footerBtn.dataset.platform; 
+    const match = Array.from(globalSocial).find(btn => btn.dataset.platform === platform); // find match
+    if (match) {
+      footerBtn.href = match.href; // copy href
+      footerBtn.target = match.target; // copy target
+    }
+  });
+
+});
+
+
+// ================================================== 4. FOOTER SECTION ==================================================
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ===== 1. Footer Year =====
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  // ===== 4.1 Footer Year =====
+  const yearEl = document.getElementById("year"); // select year element
+  if (yearEl) yearEl.textContent = new Date().getFullYear(); // update year
 
-  // ===== 2. Smooth Scroll =====
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
+  // ===== 4.2 Smooth Scroll (Footer) =====
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => { // select anchors
+    anchor.addEventListener('click', function (e) { // click event
+      e.preventDefault(); // prevent default
+      const target = document.querySelector(this.getAttribute('href')); // target element
+      if (target) target.scrollIntoView({ behavior: 'smooth' }); // scroll smoothly
     });
   });
 
-  // ===== 3. Chat Toggle =====
-  const chatBtn = document.getElementById('chatBtn');
-  const chatBox = document.getElementById('chatBox');
+  // ===== 4.3 Chat Toggle =====
+  const chatBtn = document.getElementById('chatBtn'); // get chat button
+  const chatBox = document.getElementById('chatBox'); // get chat box
   if (chatBtn && chatBox) {
-    chatBtn.addEventListener('click', e => {
-      e.stopPropagation();
+    chatBtn.addEventListener('click', e => { // toggle chat
+      e.stopPropagation(); 
       chatBox.style.display = chatBox.style.display === 'block' ? 'none' : 'block';
     });
-    window.addEventListener('click', e => {
+    window.addEventListener('click', e => { // close on outside click
       if (!e.target.closest('#chatBtn') && !e.target.closest('#chatBox')) {
         chatBox.style.display = 'none';
       }
     });
   }
+
 });
 
-
-// ===== Load Footer =====
-fetch('footer/v1.0.0/footer.html')
-  .then(res => res.text())
+// ================================================== 5. LOAD FOOTER HTML ==================================================
+fetch('footer/v1.0.0/footer.html') // fetch footer
+  .then(res => res.text()) // parse HTML
   .then(html => {
-    document.getElementById('footer-container').innerHTML = html;
-    // after footer loads, run its JS
-    const footerScript = document.createElement('script');
+    document.getElementById('footer-container').innerHTML = html; // insert footer
+
+    const footerScript = document.createElement('script'); // create footer JS script
     footerScript.src = 'footer/v1.0.0/footer.js';
-    document.body.appendChild(footerScript);
+    document.body.appendChild(footerScript); // append script
   })
-  .catch(err => console.error('Footer failed to load', err));
-
-// ===== Load Header =====
-fetch('header/v1.0.0/header.html')
-  .then(res => res.text())
-  .then(html => {
-    document.getElementById('header-container').innerHTML = html;
-
-    // Add CSS for header
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'header/v1.0.0/header.css';
-    document.head.appendChild(link);
-
-    // Load its JS (for totalViews etc.)
-    const script = document.createElement('script');
-    script.src = 'header/v1.0.0/header.js';
-    document.body.appendChild(script);
-  })
-  .catch(err => console.error('Header failed to load:', err));
+  .catch(err => console.error('Footer failed to load', err)); // error
 
 
 
@@ -242,149 +214,83 @@ fetch('header/v1.0.0/header.html')
 
 
 
-// ==========================feature page======================================
+// ================================================== 6. FEATURE PAGE ==================================================
 document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.tab');
-  const tabContents = document.querySelectorAll('.tab-content');
 
+  // ===== 6.1 Select Tabs and Contents =====
+  const tabs = document.querySelectorAll('.tab'); // select all tab buttons
+  const tabContents = document.querySelectorAll('.tab-content'); // select all tab content containers
+
+  // ===== 6.2 Helper Function: Load Tab Dynamically =====
+  async function loadTab(tabId, jsonPath) { // function to load tab content dynamically
+    const targetContainer = document.getElementById(tabId); // get the container element
+    if (!targetContainer) return; // if no container, exit
+
+    try {
+      console.log(`🔹 Loading ${tabId}...`); // log start
+      const res = await fetch(jsonPath); // fetch JSON config
+      if (!res.ok) throw new Error(`Failed to load JSON: ${res.status}`); // check fetch
+      const config = await res.json(); // parse JSON
+
+      const version = config.activeVersion; // get active version
+      const files = config.versions[version]; // get files for this version
+
+      // --- 6.2.1 Load CSS (once per version) ---
+      if (!document.querySelector(`link[href="${files.css}"]`)) {
+        const link = document.createElement('link'); // create link element
+        link.rel = 'stylesheet'; 
+        link.href = files.css; 
+        document.head.appendChild(link); // append CSS
+        console.log(`🔹 Loaded CSS: ${files.css}`); // log success
+      }
+
+      // --- 6.2.2 Load HTML ---
+      const htmlRes = await fetch(files.html); // fetch HTML
+      if (!htmlRes.ok) throw new Error(`Failed to load HTML: ${htmlRes.status}`); // check fetch
+      const html = await htmlRes.text(); // parse HTML
+      targetContainer.innerHTML = html; // insert into container
+      console.log(`🔹 Loaded HTML: ${files.html}`); // log success
+
+      // --- 6.2.3 Load JS (once per version) ---
+      if (!document.querySelector(`script[src="${files.js}"]`)) {
+        const script = document.createElement('script'); // create script element
+        script.src = files.js; 
+        document.body.appendChild(script); // append JS
+        console.log(`🔹 Loaded JS: ${files.js}`); // log success
+      }
+
+    } catch (err) {
+      console.error(`❌ ${tabId} load failed:`, err); // log error
+      targetContainer.innerHTML = `<p style="color:red;">Error loading ${tabId}: ${err.message}</p>`; // show error
+    }
+  }
+
+  // ===== 6.3 Tab Click Event Handler =====
   tabs.forEach(tab => {
-    tab.addEventListener('click', async () => {
-      const targetId = tab.dataset.tab;
-      const targetContainer = document.getElementById(targetId);
+    tab.addEventListener('click', () => {
+      const targetId = tab.dataset.tab; // get target container id
 
-      // Remove active class from all tabs & contents
-      tabs.forEach(t => t.classList.remove('active'));
-      tabContents.forEach(c => c.classList.remove('active'));
+      // --- 6.3.1 Remove Active Classes ---
+      tabs.forEach(t => t.classList.remove('active')); // remove active from all tabs
+      tabContents.forEach(c => c.classList.remove('active')); // remove active from all contents
 
-      // Activate clicked tab & content
-      tab.classList.add('active');
-      if (targetContainer) targetContainer.classList.add('active');
+      // --- 6.3.2 Activate Clicked Tab & Container ---
+      tab.classList.add('active'); // mark clicked tab as active
+      const targetContainer = document.getElementById(targetId); // get container
+      if (targetContainer) targetContainer.classList.add('active'); // mark container active
 
-      // ===== Dynamic Features Loader =====
+      // --- 6.3.3 Dynamic Loading Based on Tab ---
       if (targetId === 'features-container') {
-        try {
-          console.log('🔹 Loading Features tab...');
-
-          // Load JSON config
-          const res = await fetch('pages/features/features.json');
-          if (!res.ok) throw new Error(`Failed to fetch JSON: ${res.status}`);
-          const config = await res.json();
-
-          const version = config.activeVersion;
-          const files = config.versions[version];
-
-          if (!files) throw new Error(`No version files found for "${version}"`);
-
-          // Load CSS once
-          if (!document.querySelector(`link[href="${files.css}"]`)) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = files.css;
-            document.head.appendChild(link);
-            console.log(`🔹 Loaded CSS: ${files.css}`);
-          }
-
-          // Load HTML
-          const htmlRes = await fetch(files.html);
-          if (!htmlRes.ok) throw new Error(`Failed to fetch HTML: ${htmlRes.status}`);
-          const html = await htmlRes.text();
-          targetContainer.innerHTML = html;
-          console.log(`🔹 Loaded HTML: ${files.html}`);
-
-          // Load JS once
-          if (!document.querySelector(`script[src="${files.js}"]`)) {
-            const script = document.createElement('script');
-            script.src = files.js;
-            script.onload = () => console.log(`🔹 Loaded JS: ${files.js}`);
-            script.onerror = () => console.error(`❌ Failed to load JS: ${files.js}`);
-            document.body.appendChild(script);
-          }
-
-        } catch (err) {
-          console.error('❌ Features tab failed:', err);
-          if (targetContainer)
-            targetContainer.innerHTML = `<p style="color:red;">Error loading Features: ${err.message}</p>`;
-        }
+        loadTab(targetId, 'pages/features/features.json'); // load features tab
+      } else if (targetId === 'aboutTab') {
+        loadTab(targetId, 'pages/about/about.json'); // load about tab
       }
     });
   });
 
-  // // ===== Auto-load Features tab on page start =====
+  // ===== 6.4 Optional: Auto-load Features Tab on Page Start =====
   // const featuresTab = document.querySelector('.tab[data-tab="features-container"]');
   // if (featuresTab) featuresTab.click();
-});
-// ==========================feature page======================================
-document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.tab');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  // Helper function to load a tab dynamically
-  async function loadTab(tabId, jsonPath) {
-    const targetContainer = document.getElementById(tabId);
-    if (!targetContainer) return;
-
-    try {
-      console.log(`🔹 Loading ${tabId}...`);
-      const res = await fetch(jsonPath);
-      if (!res.ok) throw new Error(`Failed to load JSON: ${res.status}`);
-      const config = await res.json();
-
-      const version = config.activeVersion;
-      const files = config.versions[version];
-
-      // --- Load CSS (once per version) ---
-      if (!document.querySelector(`link[href="${files.css}"]`)) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = files.css;
-        document.head.appendChild(link);
-        console.log(`🔹 Loaded CSS: ${files.css}`);
-      }
-
-      // --- Load HTML ---
-      const htmlRes = await fetch(files.html);
-      if (!htmlRes.ok) throw new Error(`Failed to load HTML: ${htmlRes.status}`);
-      const html = await htmlRes.text();
-      targetContainer.innerHTML = html;
-      console.log(`🔹 Loaded HTML: ${files.html}`);
-
-      // --- Load JS (once per version) ---
-      if (!document.querySelector(`script[src="${files.js}"]`)) {
-        const script = document.createElement('script');
-        script.src = files.js;
-        document.body.appendChild(script);
-        console.log(`🔹 Loaded JS: ${files.js}`);
-      }
-
-    } catch (err) {
-      console.error(`❌ ${tabId} load failed:`, err);
-      targetContainer.innerHTML = `<p style="color:red;">Error loading ${tabId}: ${err.message}</p>`;
-    }
-  }
-
-  // Tab click event
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const targetId = tab.dataset.tab;
-
-      // Remove active from all tabs & contents
-      tabs.forEach(t => t.classList.remove('active'));
-      tabContents.forEach(c => c.classList.remove('active'));
-
-      // Activate current tab & container
-      tab.classList.add('active');
-      const targetContainer = document.getElementById(targetId);
-      if (targetContainer) targetContainer.classList.add('active');
-
-      // Dynamic loading for Features and About
-      if (targetId === 'features-container') {
-        loadTab(targetId, 'pages/features/features.json');
-      } else if (targetId === 'aboutTab') {
-        loadTab(targetId, 'pages/about/about.json');
-      }
-    });
-  });
-
 
 });
 
@@ -392,98 +298,100 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
+// ================================================== 7. MULTI-TAB DYNAMIC LOADER ==================================================
 document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.tab');
-  const tabContents = document.querySelectorAll('.tab-content');
 
-  async function loadTab(tabId, jsonPath) {
-    const targetContainer = document.getElementById(tabId);
-    if (!targetContainer) return;
+  // ===== 7.1 Select Tabs and Tab Contents =====
+  const tabs = document.querySelectorAll('.tab'); // select all tab buttons
+  const tabContents = document.querySelectorAll('.tab-content'); // select all tab containers
+
+  // ===== 7.2 Helper Function: loadTab =====
+  async function loadTab(tabId, jsonPath) { // load individual tab dynamically
+    const targetContainer = document.getElementById(tabId); // get container
+    if (!targetContainer) return; // exit if not found
 
     try {
-      const res = await fetch(jsonPath);
-      if (!res.ok) throw new Error(`Failed to load JSON: ${res.status}`);
-      const config = await res.json();
+      const res = await fetch(jsonPath); // fetch JSON config
+      if (!res.ok) throw new Error(`Failed to load JSON: ${res.status}`); // check response
+      const config = await res.json(); // parse JSON
 
-      const version = config.activeVersion;
-      const files = config.versions[version];
+      const version = config.activeVersion; // active version
+      const files = config.versions[version]; // version files
 
-      // Load CSS once
+      // --- 7.2.1 Load CSS once ---
       if (!document.querySelector(`link[href="${files.css}"]`)) {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = files.css;
-        document.head.appendChild(link);
+        document.head.appendChild(link); // append CSS
       }
 
-      // Load HTML
+      // --- 7.2.2 Load HTML ---
       const htmlRes = await fetch(files.html);
       if (!htmlRes.ok) throw new Error(`Failed to load HTML: ${htmlRes.status}`);
       const html = await htmlRes.text();
-      targetContainer.innerHTML = html;
+      targetContainer.innerHTML = html; // insert HTML
 
-      // Load JS once
+      // --- 7.2.3 Load JS once ---
       if (!document.querySelector(`script[src="${files.js}"]`)) {
         const script = document.createElement('script');
         script.src = files.js;
-        document.body.appendChild(script);
+        script.onload = () => console.log(`✅ ${tabId} JS loaded`); // ensures JS runs after load
+        document.body.appendChild(script); // append JS
       }
 
     } catch (err) {
-      console.error(`${tabId} load failed:`, err);
-      if (targetContainer) targetContainer.innerHTML = `<p style="color:red;">Error loading ${tabId}: ${err.message}</p>`;
+      console.error(`${tabId} load failed:`, err); // log error
+      if (targetContainer)
+        targetContainer.innerHTML = `<p style="color:red;">Error loading ${tabId}: ${err.message}</p>`; // show error
     }
   }
 
+  // ===== 7.3 Tab Click Event =====
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      const targetId = tab.dataset.tab;
+      const targetId = tab.dataset.tab; // get target id
 
-      // Remove active from all tabs & contents
+      // Remove active classes from all tabs & contents
       tabs.forEach(t => t.classList.remove('active'));
       tabContents.forEach(c => c.classList.remove('active'));
 
-      // Activate current tab & container
+      // Activate clicked tab & container
       tab.classList.add('active');
       const targetContainer = document.getElementById(targetId);
       if (targetContainer) targetContainer.classList.add('active');
 
-      // Dynamic loading
-      if (targetId === 'features-container') {
+      // Dynamic loading based on tab
+      if (targetId === 'productsTab') {
+        loadTab(targetId, 'pages/products/products.json');
+      } else if (targetId === 'features-container') {
         loadTab(targetId, 'pages/features/features.json');
       } else if (targetId === 'aboutTab') {
         loadTab(targetId, 'pages/about/about.json');
       } else if (targetId === 'updatesTab') {
         loadTab(targetId, 'pages/updates/updates.json');
+      } else if (targetId === 'joinTab') {
+        loadTab(targetId, 'pages/join/join.json');
+      } else if (targetId === 'contactTab') {
+        loadTab(targetId, 'pages/contact/contact.json');
+      } else if (targetId === 'aiTab') {
+        loadTab(targetId, 'pages/faq/faq.json');
       }
-    });
-  });
-});
 
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  const tabs = document.querySelectorAll(".tab");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      const tabId = tab.dataset.tab;
-      showTab(tabId);
     });
   });
 
+  // ===== 7.4 Show Tab Function =====
   function showTab(tabId) {
-    document.querySelectorAll(".tab-content").forEach(tc => tc.classList.remove("active"));
-    document.getElementById(tabId).classList.add("active");
-    tabs.forEach(t => t.classList.remove("active"));
-    document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add("active");
+    document.querySelectorAll(".tab-content").forEach(tc => tc.classList.remove("active")); // hide all
+    document.getElementById(tabId).classList.add("active"); // show selected
+    tabs.forEach(t => t.classList.remove("active")); // deactivate all tabs
+    document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add("active"); // activate selected tab
   }
 
-  // Load all dynamic tabs
-  const tabJSONs = {
+  // ===== 7.5 Preload All Dynamic Tabs =====
+  const tabJSONs = { // mapping of tabId -> JSON path
+    "productsTab": "pages/products/products.json",
     "aboutTab": "pages/about/about.json",
     "updatesTab": "pages/updates/updates.json",
     "joinTab": "pages/join/join.json",
@@ -491,156 +399,91 @@ document.addEventListener("DOMContentLoaded", () => {
     "aiTab": "pages/faq/faq.json"
   };
 
+
   for (const [tabId, jsonPath] of Object.entries(tabJSONs)) {
-    loadTabFromJSON(tabId, jsonPath);
+    loadTabFromJSON(tabId, jsonPath); // preload each tab
   }
 
-  // Loader function
-  async function loadTabFromJSON(tabId, jsonPath) {
-    try {
-      const res = await fetch(jsonPath);
-      const data = await res.json();
-      const activeVersion = data.activeVersion;
-      const versionData = data.versions[activeVersion];
+// ===== 7.6 Loader Function for Preload =====
+async function loadTabFromJSON(tabId, jsonPath) {
+  try {
+    const res = await fetch(jsonPath);
+    if (!res.ok) throw new Error(`Failed to load JSON: ${res.status}`);
+    const data = await res.json();
+    const activeVersion = data.activeVersion;
+    const versionData = data.versions[activeVersion];
 
-      // Load CSS
+    // --- Load CSS ---
+    if (!document.querySelector(`link[href="${versionData.css}"]`)) {
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.href = versionData.css;
       document.head.appendChild(link);
+    }
 
-      // Load HTML
-      const tabContainer = document.getElementById(tabId);
-      const htmlRes = await fetch(versionData.html);
-      const htmlText = await htmlRes.text();
-      tabContainer.innerHTML = htmlText;
+    // --- Load HTML ---
+    const tabContainer = document.getElementById(tabId);
+    const htmlRes = await fetch(versionData.html);
+    if (!htmlRes.ok) throw new Error(`Failed to load HTML: ${htmlRes.status}`);
+    const htmlText = await htmlRes.text();
+    tabContainer.innerHTML = htmlText;
 
-      // Load JS
+    // --- Load JS AFTER HTML is inserted ---
+    if (!document.querySelector(`script[src="${versionData.js}"]`)) {
       const script = document.createElement("script");
       script.src = versionData.js;
+      script.onload = () => {
+        console.log(`✅ ${tabId} JS loaded`);
+        if (tabId === "joinTab" && typeof initJoinTab === "function") {
+          initJoinTab();
+        }
+      };
       document.body.appendChild(script);
-
-    } catch (err) {
-      console.error(`Error loading ${tabId}:`, err);
+    } else {
+      // JS already exists, still call init
+      if (tabId === "joinTab" && typeof initJoinTab === "function") {
+        initJoinTab();
+      }
     }
+
+  } catch (err) {
+    console.error(`Error loading ${tabId}:`, err);
+    const tabContainer = document.getElementById(tabId);
+    if (tabContainer)
+      tabContainer.innerHTML = `<p style="color:red;">Error loading ${tabId}: ${err.message}</p>`;
   }
+} // <-- THIS closes loadTabFromJSON properly
 
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-// Load any tab by JSON
-function loadTab(tabName, jsonPath, tabId) {
-  fetch(jsonPath)
+// ================================================== 8. HEADER DYNAMIC LOADER ==================================================
+document.addEventListener('DOMContentLoaded', () => {
+  // --- 8.1 Load Header Configuration JSON ---
+  fetch('header/header.json')
     .then(res => res.json())
-    .then(data => {
-      const active = data.versions[data.activeVersion];
+    .then(config => {
+      const version = config.activeVersion; // get current version
+      const files = config.versions[version]; // get file paths
 
-      // Load CSS
-      const linkId = tabName + '-css';
-      let linkEl = document.getElementById(linkId);
-      if (!linkEl) {
-        linkEl = document.createElement('link');
-        linkEl.id = linkId;
-        linkEl.rel = 'stylesheet';
-        document.head.appendChild(linkEl);
-      }
-      linkEl.href = active.css;
+      // --- 8.2 Inject Header CSS ---
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = files.css;
+      document.head.appendChild(link);
 
-      // Load HTML
-      fetch(active.html)
+      // --- 8.3 Load Header HTML ---
+      fetch(files.html)
         .then(res => res.text())
         .then(html => {
-          document.getElementById(tabId).innerHTML = html;
+          document.getElementById('header-container').innerHTML = html;
 
-          // Load JS if any
-          if (active.js) {
-            const scriptId = tabName + '-js';
-            let scriptEl = document.getElementById(scriptId);
-            if (!scriptEl) {
-              scriptEl = document.createElement('script');
-              scriptEl.id = scriptId;
-              scriptEl.src = active.js;
-              document.body.appendChild(scriptEl);
-            }
-          }
+          // --- 8.4 Load Header JS ---
+          const script = document.createElement('script');
+          script.src = files.js;
+          document.body.appendChild(script);
         })
-        .catch(err => console.error('Failed to load HTML:', err));
+        .catch(err => console.error('Header HTML load failed:', err));
     })
-    .catch(err => console.error('Failed to load JSON:', err));
-}
-
-// Example: load products tab
-loadTab('products', 'pages/products/products.json', 'productsTab');
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.tab');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  async function loadTab(tabId, jsonPath) {
-    const targetContainer = document.getElementById(tabId);
-    if (!targetContainer) return;
-
-    try {
-      const res = await fetch(jsonPath);
-      const config = await res.json();
-      const version = config.activeVersion;
-      const files = config.versions[version];
-
-      // Load CSS
-      if (!document.querySelector(`link[href="${files.css}"]`)) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = files.css;
-        document.head.appendChild(link);
-      }
-
-      // Load HTML
-      const htmlRes = await fetch(files.html);
-      const html = await htmlRes.text();
-      targetContainer.innerHTML = html;
-
-      // Load JS
-      if (!document.querySelector(`script[src="${files.js}"]`)) {
-        const script = document.createElement('script');
-        script.src = files.js;
-        document.body.appendChild(script);
-      }
-
-    } catch (err) {
-      console.error(`Error loading ${tabId}:`, err);
-      targetContainer.innerHTML = `<p style="color:red;">Failed to load ${tabId}: ${err.message}</p>`;
-    }
-  }
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const tabId = tab.dataset.tab;
-      tabs.forEach(t => t.classList.remove('active'));
-      tabContents.forEach(c => c.classList.remove('active'));
-
-      tab.classList.add('active');
-      const container = document.getElementById(tabId);
-      container?.classList.add('active');
-
-      if (tabId === 'joinTab') loadTab(tabId, 'pages/join/join.json');
-    });
-  });
-
-  // Auto-load joinTab if active by default
-  const defaultTab = document.querySelector('.tab.active') || tabs[0];
-  defaultTab?.click();
+    .catch(err => console.error('Header JSON load failed:', err));
 });
