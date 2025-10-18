@@ -98,7 +98,26 @@ document.addEventListener('DOMContentLoaded', () => {
           link.href = files.css;
           document.head.appendChild(link);
 
-          return fetch(files.html);
+          return fetch(files.html);// ===== Load Header =====
+fetch('header/v1.0.0/header.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('header-container').innerHTML = html;
+
+    // Add CSS for header
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'header/v1.0.0/header.css';
+    document.head.appendChild(link);
+
+    // Load its JS (for totalViews etc.)
+    const script = document.createElement('script');
+    script.src = 'header/v1.0.0/header.js';
+    document.body.appendChild(script);
+  })
+  .catch(err => console.error('Header failed to load:', err));
+
+
         })
         .then(res => res.text())
         .then(html => {
@@ -184,6 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
 // ===== Load Footer =====
 fetch('footer/v1.0.0/footer.html')
   .then(res => res.text())
@@ -196,6 +217,24 @@ fetch('footer/v1.0.0/footer.html')
   })
   .catch(err => console.error('Footer failed to load', err));
 
+// ===== Load Header =====
+fetch('header/v1.0.0/header.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('header-container').innerHTML = html;
+
+    // Add CSS for header
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'header/v1.0.0/header.css';
+    document.head.appendChild(link);
+
+    // Load its JS (for totalViews etc.)
+    const script = document.createElement('script');
+    script.src = 'header/v1.0.0/header.js';
+    document.body.appendChild(script);
+  })
+  .catch(err => console.error('Header failed to load:', err));
 
 
 
